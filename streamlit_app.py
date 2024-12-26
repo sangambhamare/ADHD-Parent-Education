@@ -24,16 +24,15 @@ def main():
     st.title("ADHD Parent Education")
     st.write("Welcome to the ADHD Parent Education portal! Here are 10 random YouTube videos that can help you understand ADHD better.")
 
-    # Use the uploaded image as the thumbnail for videos
-    uploaded_image_path = "/mnt/data/maxresdefault.jpg"  # Path to the uploaded image
-    thumbnail_image = uploaded_image_path  # Use the uploaded image
-
     # Display each video
     for video in videos:
         st.write(f"#### {video['title']}")
         
-        # Show video thumbnail (using uploaded image)
-        st.image(thumbnail_image, use_container_width=True, caption="Click to Watch")
+        # Get the video thumbnail URL
+        thumbnail_url = get_video_thumbnail(video['url'])
+        
+        # Show video thumbnail
+        st.image(thumbnail_url, use_column_width=True, caption="Click to Watch")
 
         # Embed the YouTube video using st.video
         st.video(video['url'])
