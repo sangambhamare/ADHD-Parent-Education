@@ -1,55 +1,6 @@
 import streamlit as st
 import pandas as pd
 from googleapiclient.discovery import build
-import time
-
-# Add custom CSS for styling
-st.markdown("""
-    <style>
-        body {
-            background-color: #fce4ec;
-            color: #4A148C;
-            font-family: 'Comic Sans MS', cursive, sans-serif;
-        }
-        .title {
-            font-size: 48px;
-            color: #FF4081;
-            text-align: center;
-        }
-        .header {
-            font-size: 30px;
-            color: #3F51B5;
-        }
-        .video-card {
-            background-color: #ffffff;
-            padding: 10px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            margin: 10px 0;
-        }
-        .footer {
-            text-align: center;
-            font-size: 14px;
-            color: #FF4081;
-            margin-top: 20px;
-        }
-        .emoji {
-            font-size: 60px;
-        }
-        .fun-button {
-            background-color: #FF4081;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            font-size: 20px;
-            border-radius: 10px;
-            cursor: pointer;
-        }
-        .fun-button:hover {
-            background-color: #F50057;
-        }
-    </style>
-""", unsafe_allow_html=True)
 
 # Function to get YouTube videos based on a search query
 def get_youtube_videos(query, api_key):
@@ -76,40 +27,64 @@ def get_youtube_videos(query, api_key):
 
 # Main function for Streamlit app
 def main():
-    st.markdown('<h1 class="title">🎉 ADHD Parent Education for Kids 🎉</h1>', unsafe_allow_html=True)
-    st.write("👦👧 Welcome to a fun learning portal for ADHD! 🎈")
+    # Apply custom CSS to make the site more appealing for kids
+    st.markdown("""
+    <style>
+    .stApp {
+        background-color: #f1f8e9;
+    }
+    h1 {
+        color: #FF4081;
+        font-family: 'Comic Sans MS', sans-serif;
+    }
+    h2 {
+        color: #FF4081;
+        font-family: 'Comic Sans MS', sans-serif;
+    }
+    .stButton>button {
+        background-color: #FF4081;
+        color: white;
+        font-size: 20px;
+        border-radius: 20px;
+        padding: 10px;
+        transition: 0.3s;
+    }
+    .stButton>button:hover {
+        background-color: #ff80ab;
+    }
+    .stTextInput>input {
+        font-size: 20px;
+        padding: 10px;
+    }
+    .stMarkdown {
+        font-family: 'Comic Sans MS', sans-serif;
+        font-size: 18px;
+    }
+    </style>
+    """, unsafe_allow_html=True)
 
-    query = st.text_input("What would you like to learn about? 🤔", placeholder="e.g., ADHD Tips for Kids")
+    st.title("ADHD Parent Education")
+    st.write("Welcome to the ADHD Parent Education portal! Let's learn together!")
 
+    query = st.text_input("What would you like to learn about ADHD?", placeholder="Enter topic here...")
+    
     if query:
-        st.markdown('<h2 class="header">Here are some fun videos for you! 🎥</h2>', unsafe_allow_html=True)
         api_key = "YOUR_YOUTUBE_API_KEY"  # Replace with your API key
-        st.write("Fetching related YouTube videos... 🧑‍💻")
+        st.write("Fetching related YouTube videos...")
         videos_df = get_youtube_videos(query, api_key)
 
         if not videos_df.empty:
+            st.write(f"### Related Videos for: {query}")
             for _, row in videos_df.iterrows():
-                st.markdown(f"""
-                    <div class="video-card">
-                        <h3>{row['title']} 🎬</h3>
-                        <p>{row['description']}</p>
-                        <a href="{row['url']}" target="_blank">
-                            <button class="fun-button">Watch Now! 🚀</button>
-                        </a>
-                    </div>
-                """, unsafe_allow_html=True)
+                st.write(f"#### {row['title']}")
+                st.write(f"Description: {row['description']}")
+                st.write(f"[Watch here]({row['url']})")
         else:
-            st.write("Oops! No videos found for the given query 😔")
+            st.write("Oops! No videos found for this topic.")
 
-    st.markdown("<div class='footer'>All copyrights reserved to Dr. Shurtika Khairnar 2024 🌟</div>", unsafe_allow_html=True)
-
-    # Add a fun animation
-    st.markdown("""
-        <div class="emoji">🦄✨</div>
-        <p style="text-align:center;">Enjoy your time learning with us! 💡🌟</p>
-    """, unsafe_allow_html=True)
-
-    time.sleep(1)  # Optional to make things feel more dynamic
+    # Add copyright notice
+    st.write("\n")
+    st.write("All copyrights reserved to Dr. Shurtika Khairnar 2024")
 
 # Run the Streamlit app
 if __name__ == "__main__":
