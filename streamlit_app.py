@@ -46,6 +46,10 @@ def main():
         else:
             st.write("No videos found for the given query.")
 
+    # Add copyright notice
+    st.write("\n")
+    st.write("All copyrights reserved to Dr. Shurtika Khairnar 2024")
+
 # Run the Streamlit app
 if __name__ == "__main__":
     main()
