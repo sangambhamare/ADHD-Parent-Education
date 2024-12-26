@@ -29,9 +29,11 @@ def main():
         with col:
             st.write(f"#### {video['title']}")
             
-            # Show a button to play the video
-            if st.button(f"Play {video['title']}"):
-                st.video(video['url'])
+            # Embed YouTube video directly using the URL
+            youtube_embed_url = video['url'].replace("watch?v=", "embed/")
+            
+            # Embed the YouTube video using st.video
+            st.video(youtube_embed_url)
 
     # Add copyright notice at the bottom
     st.write("\n")
