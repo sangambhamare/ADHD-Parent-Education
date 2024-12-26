@@ -24,18 +24,25 @@ def main():
     st.title("ADHD Parent Education")
     st.write("Welcome to the ADHD Parent Education portal! Here are 10 random YouTube videos that can help you understand ADHD better.")
 
-    # Display each video
-    for video in videos:
-        st.write(f"#### {video['title']}")
-        
-        # Get the video thumbnail URL
-        thumbnail_url = get_video_thumbnail(video['url'])
-        
-        # Show video thumbnail
-        st.image(thumbnail_url, use_column_width=True, caption="Click to Watch")
+    # Create columns for grid layout
+    cols = st.columns(2)  # Two columns for better layout
 
-        # Embed the YouTube video using st.video
-        st.video(video['url'])
+    # Display each video in a grid layout
+    for i, video in enumerate(videos):
+        col = cols[i % 2]  # Alternate between the two columns
+        
+        with col:
+            st.write(f"#### {video['title']}")
+            
+            # Get the video thumbnail URL
+            thumbnail_url = get_video_thumbnail(video['url'])
+            
+            # Show video thumbnail
+            st.image(thumbnail_url, use_container_width=True, caption="Click to Watch")
+            
+            # Show a button to play the video
+            if st.button(f"Play {video['title']}"):
+                st.video(video['url'])
 
     # Add copyright notice at the bottom
     st.write("\n")
