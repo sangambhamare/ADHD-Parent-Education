@@ -14,11 +14,6 @@ videos = [
     {"title": "Parenting Techniques for Kids with ADHD", "url": "https://www.youtube.com/watch?v=kXYiU_JCYtU"}
 ]
 
-# Function to get YouTube video thumbnail URL
-def get_video_thumbnail(url):
-    video_id = url.split("v=")[-1]  # Extract video ID from URL
-    return f"https://img.youtube.com/vi/{video_id}/maxresdefault.jpg"
-
 # Streamlit app template
 def main():
     st.title("ADHD Parent Education")
@@ -33,12 +28,6 @@ def main():
         
         with col:
             st.write(f"#### {video['title']}")
-            
-            # Get the video thumbnail URL
-            thumbnail_url = get_video_thumbnail(video['url'])
-            
-            # Show video thumbnail
-            st.image(thumbnail_url, use_container_width=True, caption="Click to Watch")
             
             # Show a button to play the video
             if st.button(f"Play {video['title']}"):
